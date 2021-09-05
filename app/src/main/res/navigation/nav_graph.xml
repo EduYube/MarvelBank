@@ -7,12 +7,12 @@
 
     <activity
         android:id="@+id/mainActivity"
-        android:name="com.eyubero.marvelbank.MainActivity"
+        android:name="com.eyubero.marvelbank.view.MainActivity"
         android:label="activity_main"
         tools:layout="@layout/activity_main" />
     <fragment
         android:id="@+id/splashFragment"
-        android:name="com.eyubero.marvelbank.SplashFragment"
+        android:name="com.eyubero.marvelbank.view.SplashFragment"
         android:label="fragment_splash"
         tools:layout="@layout/fragment_splash" >
         <action
@@ -21,7 +21,7 @@
     </fragment>
     <fragment
         android:id="@+id/heroesListFragment"
-        android:name="com.eyubero.marvelbank.HeroesListFragment"
+        android:name="com.eyubero.marvelbank.view.HeroesListFragment"
         android:label="fragment_heroes_list"
         tools:layout="@layout/fragment_heroes_list" />
 </navigation>

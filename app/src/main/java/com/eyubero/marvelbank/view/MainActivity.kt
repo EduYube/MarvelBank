@@ -1,11 +1,11 @@
-package com.eyubero.marvelbank
+package com.eyubero.marvelbank.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import androidx.navigation.NavController
-import androidx.navigation.fragment.NavHostFragment
+import com.eyubero.marvelbank.R
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
