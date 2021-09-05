@@ -17,6 +17,7 @@ import com.eyubero.marvelbank.utils.observe
 import com.eyubero.marvelbank.viewmodel.HeroesListViewModel
 import com.eyubero.marvelbank.viewmodel.HeroesListViewModelState
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.MutableStateFlow
 
 @AndroidEntryPoint
 class HeroesListFragment : Fragment() {
@@ -46,9 +47,19 @@ class HeroesListFragment : Fragment() {
 
         observe(mViewModel.state, stateObserver)
 
-        recyclerView = binding!!.rvHeroes
+        recyclerView = binding!!.heroesLoadedState.rvHeroes
+        initView()
+    }
+
+    private fun initView() {
+        val mLayoutManager = GridLayoutManager(requireActivity(), 2)
+        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener(){
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                mViewModel.moreHeroes.value = mLayoutManager.findLastVisibleItemPosition()
+            }
+        })
         recyclerView.apply {
-            layoutManager = GridLayoutManager(requireActivity(), 2)
+            layoutManager = mLayoutManager
             adapter = heroesListAdapter
         }
     }
@@ -59,19 +70,45 @@ class HeroesListFragment : Fragment() {
     }
 
     private fun onHeroSelected(hero: Hero) {
-        Toast.makeText(requireContext(),"Pulsado", Toast.LENGTH_LONG).show()
+        Toast.makeText(requireContext(),hero.name+" pulsado", Toast.LENGTH_LONG).show()
     }
 
     private fun onStateChanged(state: HeroesListViewModelState) {
         when (state) {
-            is HeroesListViewModelState.Success -> initView(state)
-            /*is HeroesListViewModelState.LoadingList -> displayLoading()
-            is HeroesListViewModelState.Error -> displayError()
-            is HeroesListViewModelState.Empty -> displayEmptyView()*/
+            is HeroesListViewModelState.Success -> showList(state)
+            is HeroesListViewModelState.Loading -> showLoading()
+            is HeroesListViewModelState.Error -> showError()
+            is HeroesListViewModelState.Empty -> showEmptyList()
         }
     }
 
-    private fun initView(state: HeroesListViewModelState.Success) {
+    private fun showEmptyList() {
+        binding!!.heroesEmptyState.emptyViewParent.visibility = View.VISIBLE
+        binding!!.heroesErrorState.errorViewParent.visibility = View.GONE
+        binding!!.heroesLoadedState.rvHeroes.visibility = View.GONE
+        binding!!.heroesLoadingState.loadingView.visibility = View.GONE
+    }
+
+    private fun showError() {
+        binding!!.heroesEmptyState.emptyViewParent.visibility = View.GONE
+        binding!!.heroesErrorState.errorViewParent.visibility = View.VISIBLE
+        binding!!.heroesLoadedState.rvHeroes.visibility = View.GONE
+        binding!!.heroesLoadingState.loadingView.visibility = View.GONE
+    }
+
+    private fun showLoading() {
+        binding!!.heroesEmptyState.emptyViewParent.visibility = View.GONE
+        binding!!.heroesErrorState.errorViewParent.visibility = View.GONE
+        binding!!.heroesLoadedState.rvHeroes.visibility = View.GONE
+        binding!!.heroesLoadingState.loadingView.visibility = View.VISIBLE
+
+    }
+
+    private fun showList(state: HeroesListViewModelState.Success) {
+        binding!!.heroesEmptyState.emptyViewParent.visibility = View.GONE
+        binding!!.heroesErrorState.errorViewParent.visibility = View.GONE
+        binding!!.heroesLoadedState.rvHeroes.visibility = View.VISIBLE
+        binding!!.heroesLoadingState.loadingView.visibility = View.GONE
         mHeroesList.addAll(
             mHeroesList.lastIndex + 1,
             state.heroesList.results
