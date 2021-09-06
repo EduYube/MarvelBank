@@ -5,8 +5,10 @@
     <string name="splash_image_description">splash image</string>
     <string name="hero_image_view_description">hero image view</string>
     <string name="hero_default_name">Marvel</string>
-    <string name="heroes_list_loading_message">El universo no se salva solo, ahora mismo los héroes no pueden atenderte</string>
+    <string name="heroes_list_empty_message">El universo no se salva solo, ahora mismo los héroes no pueden atenderte</string>
+    <string name="heroes_description_empty_message">Nuestro héroe prefiere reservar sus descripciones para primeros encuentros</string>
     <string name="loading_image_description">loading image</string>
     <string name="heroes_list_error_message">Parece que Loki se ha hecho con el control de las comunicaciones</string>
     <string name="loading_message">Vengadores... Reuníos!</string>
+    <string name="hero_detail_image_description">hero detail image</string>
 </resources>

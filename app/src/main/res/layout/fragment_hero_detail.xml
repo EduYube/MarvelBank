@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    tools:context=".view.HeroDetailFragment">
+
+    <ScrollView
+        android:id="@+id/heroDetailSuccessState"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/heroDetailImage"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:contentDescription="@string/hero_detail_image_description"
+                android:scaleType="centerCrop"
+                android:src="@drawable/comic" />
+
+            <TextView
+                android:id="@+id/heroDetailName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:textColor="@android:color/black"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/heroDetailDescription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                android:textColor="@android:color/black"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <include
+        android:id="@+id/heroDetailLoadingState"
+        layout="@layout/loading_detail_state"
+        android:visibility="gone" />
+
+    <include
+        android:id="@+id/heroDetailErrorState"
+        layout="@layout/error_detail_state"
+        android:visibility="gone" />
+
+</RelativeLayout>

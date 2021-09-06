@@ -23,5 +23,19 @@
         android:id="@+id/heroesListFragment"
         android:name="com.eyubero.marvelbank.view.HeroesListFragment"
         android:label="fragment_heroes_list"
-        tools:layout="@layout/fragment_heroes_list" />
+        tools:layout="@layout/fragment_heroes_list" >
+        <action
+            android:id="@+id/action_heroesListFragment_to_heroDetailFragment"
+            app:destination="@id/heroDetailFragment">
+            <argument
+                android:name="heroId"
+                app:argType="integer"
+                android:defaultValue="0" />
+        </action>
+    </fragment>
+    <fragment
+        android:id="@+id/heroDetailFragment"
+        android:name="com.eyubero.marvelbank.view.HeroDetailFragment"
+        android:label="fragment_hero_detail"
+        tools:layout="@layout/fragment_hero_detail" />
 </navigation>
