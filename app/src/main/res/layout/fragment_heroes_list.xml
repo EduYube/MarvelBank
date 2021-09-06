@@ -1,29 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.HeroesListFragment"
-    android:layout_gravity="center">
+    android:layout_gravity="center"
+    tools:context=".view.HeroesListFragment">
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/gridDimensionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:backgroundTint="@color/marvel_red"
+        android:tint="@color/white"
+        android:contentDescription="@string/change_grid_layout_dimension_description"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
     <include
-        layout="@layout/heroes_list_loaded"
         android:id="@+id/heroesLoadedState"
-        android:visibility="visible" />
+        layout="@layout/heroes_list_loaded"
+        android:visibility="visible"/>
 
     <include
-        layout="@layout/heroes_empty_view"
         android:id="@+id/heroesEmptyState"
+        layout="@layout/heroes_empty_view"
         android:visibility="gone" />
 
     <include
-        layout="@layout/heroes_error_view"
         android:id="@+id/heroesErrorState"
+        layout="@layout/heroes_error_view"
         android:visibility="gone" />
+
     <include
 
-        layout="@layout/heroes_loading_view"
         android:id="@+id/heroesLoadingState"
+        layout="@layout/heroes_loading_view"
         android:visibility="gone" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

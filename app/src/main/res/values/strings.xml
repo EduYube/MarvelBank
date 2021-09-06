@@ -11,4 +11,5 @@
     <string name="heroes_list_error_message">Parece que Loki se ha hecho con el control de las comunicaciones</string>
     <string name="loading_message">Vengadores... Reuníos!</string>
     <string name="hero_detail_image_description">hero detail image</string>
+    <string name="change_grid_layout_dimension_description">change grid layout dimension</string>
 </resources>

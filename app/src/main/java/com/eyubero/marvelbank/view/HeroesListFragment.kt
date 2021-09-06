@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -12,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.eyubero.marvelbank.R
 import com.eyubero.marvelbank.adapter.HeroesAdapter
 import com.eyubero.marvelbank.databinding.FragmentHeroesListBinding
@@ -20,11 +20,11 @@ import com.eyubero.marvelbank.utils.observe
 import com.eyubero.marvelbank.viewmodel.HeroesListViewModel
 import com.eyubero.marvelbank.viewmodel.HeroesListViewModelState
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.MutableStateFlow
 
 @AndroidEntryPoint
 class HeroesListFragment : Fragment() {
 
+    private var gridStatus = 1
     private val stateObserver = Observer(::onStateChanged)
     private var binding: FragmentHeroesListBinding? = null
     private val mHeroesList = ArrayList<Hero>()
@@ -58,8 +58,24 @@ class HeroesListFragment : Fragment() {
     }
 
     private fun initView() {
-        val mLayoutManager = GridLayoutManager(requireActivity(), 2)
-        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener(){
+        setButtonImage()
+        val mLayoutManager = GridLayoutManager(requireActivity(), gridStatus)
+        binding!!.gridDimensionButton.setOnClickListener {
+            when (gridStatus) {
+                1 -> {
+                    gridStatus = 2
+
+                }
+                2 -> {
+                    gridStatus = 4
+                }
+                4 -> {
+                    gridStatus = 1
+                }
+            }
+            initView()
+        }
+        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 mViewModel.moreHeroes.value = mLayoutManager.findLastVisibleItemPosition()
             }
@@ -67,6 +83,14 @@ class HeroesListFragment : Fragment() {
         recyclerView.apply {
             layoutManager = mLayoutManager
             adapter = heroesListAdapter
+        }
+    }
+
+    private fun setButtonImage() {
+        when(gridStatus) {
+            1 -> Glide.with(requireContext()).load("https://cdn.icon-icons.com/icons2/1130/PNG/512/numberoneinacircle_80030.png").into(binding!!.gridDimensionButton)
+            2 -> Glide.with(requireContext()).load("https://cdn.icon-icons.com/icons2/1130/PNG/512/numbertwoinacircle_80299.png").into(binding!!.gridDimensionButton)
+            4 -> Glide.with(requireContext()).load("https://cdn.icon-icons.com/icons2/1130/PNG/512/numberfourincircularbutton_80047.png").into(binding!!.gridDimensionButton)
         }
     }
 
