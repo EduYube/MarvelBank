@@ -5,11 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.eyubero.marvelbank.R
 import com.eyubero.marvelbank.adapter.HeroesAdapter
 import com.eyubero.marvelbank.databinding.FragmentHeroesListBinding
 import com.eyubero.marvelbank.domain.Hero
@@ -47,6 +50,9 @@ class HeroesListFragment : Fragment() {
 
         observe(mViewModel.state, stateObserver)
 
+        (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(false)
+        (activity as AppCompatActivity).supportActionBar?.setDisplayShowHomeEnabled(false)
+        activity?.title = getString(R.string.app_name)
         recyclerView = binding!!.heroesLoadedState.rvHeroes
         initView()
     }
@@ -70,7 +76,12 @@ class HeroesListFragment : Fragment() {
     }
 
     private fun onHeroSelected(hero: Hero) {
-        Toast.makeText(requireContext(),hero.name+" pulsado", Toast.LENGTH_LONG).show()
+        val bundle = Bundle()
+        bundle.putSerializable("hero", hero)
+        findNavController().navigate(
+            R.id.heroDetailFragment,
+            bundle
+        )
     }
 
     private fun onStateChanged(state: HeroesListViewModelState) {
